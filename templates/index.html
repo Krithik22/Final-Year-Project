@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuthenX</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #FCFCFE;
+      }
+      .title-animation {
+        font-size: 3em;
+        color: black; /* Set your desired text color */
+        animation: fadeIn 2s ease-out 1s forwards,
+          fadeOut 2s ease-in 3s forwards;
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .main-content {
+        flex-direction: column;
+      }
+      .container {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .box {
+        width: 200px;
+        padding: 20px;
+        text-align: center;
+        border-radius: 20px;
+        background: #E8EAED;
+        margin: 0 10px;
+      }
+
+      .box img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+      }
+
+      .upload-button {
+        padding: 10px 20px;
+        border-radius: 20px;
+        background-color: #6E63FD;
+        color: whitesmoke;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      #submit-btn {
+        padding: 10px 20px;
+        border-radius: 20px;
+        border-style: none;
+        background-color: #6E63FD;
+        color: whitesmoke;
+        cursor: pointer;
+        display: block;
+        margin: 10px auto;
+      }
+      .frames {
+        display: flex;
+      }
+      .frame {
+        width: 90%; /* Increase the width as desired */
+        height: 200px;
+        padding: 10px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        margin: 10px;
+      }
+      .result {
+        text-align: center;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="animation-container">
+      <div class="animation">
+        <h1 class="title-animation">
+          Authent<span style="color: red">X</span>
+        </h1>
+      </div>
+    </div>
+    <div class="main-content" style="display: none">
+      <h2 style="text-align: center">Plagiarism Checker for Handwritten Documents</h2>
+      <section class="upload-files">
+        <form method="POST" action="/" enctype="multipart/form-data">
+          <div class="container">
+            <div class="box">
+              <img src="{{ url_for('static', filename='images/file-img.png') }}" alt="file">
+              <label for="fileInput1" class="upload-button"
+                >Upload File 1</label>
+              <input type="file" id="fileInput1" name="file1" accept=".pdf" />
+            </div>
+            <div class="box">
+              <img src="{{ url_for('static', filename='images/file-img.png') }}" alt="file">
+              <label for="fileInput2" class="upload-button"
+                >Upload File 2</label>
+              <input type="file" id="fileInput2" name="file2" accept=".pdf" />
+            </div>
+          </div>
+          <button id="submit-btn" type="submit">Extract Text</button>
+        </form>
+      </section>
+      <section class="frames">
+        <div class="frame" name="frame1" height="300px"><p style="text-align: center;"><b>File 1</b></p>{{text1}}</div>
+        <div class="frame" name="frame2" height="300px"><p style="text-align: center;"><b>File 2</b></p>{{text2}}</div>
+      </section>
+      <section class="result">
+        {{result}}
+      </section>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const titleAnimation = document.querySelector(".title-animation");
+        const mainContent = document.querySelector(".main-content");
+
+        setTimeout(() => {
+          titleAnimation.style.display = "none";
+          mainContent.style.display = "flex";
+        }, 4000); // Adjust the timing (4 seconds in this example) based on your animation duration
+      });
+    </script>
+  </body>
+</html>
